@@ -29,6 +29,7 @@ The `demo.py` script performs the following tasks:
   ollama pull hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF
   
 - Python library:
+  ```bash
   pip install ollama
 
 ### 2. Run the Code
