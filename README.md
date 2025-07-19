@@ -42,7 +42,7 @@ The `demo.py` script performs the following tasks:
 
 ### What could be improved with a larger dataset or better models?
 
-- More diverse dataset: A larger and more varied knowledge base (e.g., Wikipedia, domain articles) would enable the system to answer broader and more complex queries.
+- More diverse dataset: A larger and more varied knowledge base would enable the system to answer broader and more complex queries.
 - Advanced embedding models: More powerful or domain-adapted embedding models could enhance retrieval quality.
-- Larger instruction-tuned LLMs: Models like LLaMA 3 8B or Mistral-Instruct would generate more fluent, factual, and detailed responses.
-- Reranking and filtering: Incorporating a second stage reranker or using hybrid retrieval (BM25 + embeddings) could further refine results.
+- Larger instruction-tuned LLMs: Bigger models would generate more fluent, factual, and detailed responses.
+- Reranking and filtering: Incorporating a second stage reranker or using hybrid retrieval could further refine results.
