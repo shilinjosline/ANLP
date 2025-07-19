@@ -1,42 +1,56 @@
-# Simple RAG System with Ollama (RAG Eval)
+# Simple Retrieval-Augmented Generation (RAG) System using Ollama
 
-This project implements a **simple Retrieval-Augmented Generation (RAG)** pipeline using [Ollama](https://ollama.com) for **local language model inference**. The script:
+This project implements a minimal Retrieval-Augmented Generation (RAG) pipeline in Python using local inference with Ollama. It evaluates how changing the number of retrieved context chunks (`top_n`) impacts the quality of generated answers from a local language model.
 
-- Loads a dataset of cat facts (`cat-facts.txt`)
-- Embeds each line using a local embedding model (`bge-base-en-v1.5`)
-- Stores embeddings in a vector store
-- Accepts user queries
-- Retrieves the top-N most relevant facts based on cosine similarity
-- Generates a response using a local language model (`llama-3.2-1b-instruct`)
-- Evaluates performance across multiple `top_n` values (`1` to `5`) for retrieval
-- Logs outputs for qualitative analysis in `rag_eval_log.txt`
+## What the Code Does
 
----
+The `demo.py` script performs the following tasks:
+
+1. Loads a dataset from `cat-facts.txt`, treating each line as a chunk of factual knowledge.
+2. Embeds each chunk using `ollama.embed()` and stores them in a simple vector database.
+3. Implements cosine similarity to retrieve the most relevant chunks for a given user query.
+4. Tests multiple retrieval settings (`top_n` from 1 to 5) across a small set of example queries.
+5. Generates responses using a local instruction-tuned LLM with the retrieved context.
+6. Logs all outputs in `rag_eval_log.txt` for review.
 
 ## How to Run
 
-1. **Requirements**
-   - Python 3.7+
-   - Ollama installed and configured with the following models:
-     - `bge-base-en-v1.5` (for embedding)
-     - `llama-3.2-1b-instruct` (for generation)
-   - File: Edit the location of the 'cat-facts.txt`
+### 1. Prerequisites
+- Python 3.7+
+- Ollama installed and running
+- Required models:
+  ollama pull hf.co/CompendiumLabs/bge-base-en-v1.5-gguf
+  ollama pull hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF
+- Python library:
+  pip install ollama
 
-2. **Run the script**
-   ```bash
-   python demo.py
+### 2. Run the Code
+Make sure `cat-facts.txt` is located at the specified path in the script (or update it), then run:
+  python demo.py
 
-## Observations
-What limitations did you observe?
-1. Verbose / hallucinated outputs: With larger top_n values (e.g., 5), the model sometimes included redundant or unrelated information.
-2. Shallow reasoning: The model occasionally gave surface-level answers, lacking deeper understanding or explanation.
-3. Repetitive content: Similar chunks caused the model to repeat facts or phrases across different generations.
+### 3. Output
+All chatbot responses across different `top_n` settings will be saved in:
+  rag_eval_log.txt
 
-What could be improved with a larger dataset or more advanced models?
-1. More diverse knowledge: A larger dataset would allow the system to answer more complex and varied questions.
-2. Better embeddings: Using advanced embedding models could improve retrieval accuracy and relevance.
-3. Stronger generation model: Upgrading to a larger instruction-tuned LLM would likely yield more fluent, accurate, and context-aware responses.
-4. Reranking or filtering: Introducing a reranker model or chunk deduplication could reduce noise in retrieved context.
+## Reflection
 
+### What limitations did you observe?
 
+- Response verbosity & hallucination: At higher `top_n` values, the LLM produced longer, sometimes repetitive or incorrect answers due to less relevant context being included.
+- Limited coverage: Since the dataset (`cat-facts.txt`) is short and domain-specific, the system can only answer a narrow range of questions.
+- Basic retrieval: Cosine similarity over raw embeddings works, but lacks nuance (e.g., no semantic reranking or disambiguation).
 
+### What could be improved with a larger dataset or better models?
+
+- More diverse dataset: A larger and more varied knowledge base (e.g., Wikipedia, domain articles) would enable the system to answer broader and more complex queries.
+- Advanced embedding models: More powerful or domain-adapted embedding models could enhance retrieval quality.
+- Larger instruction-tuned LLMs: Models like LLaMA 3 8B or Mistral-Instruct would generate more fluent, factual, and detailed responses.
+- Reranking and filtering: Incorporating a second stage reranker or using hybrid retrieval (BM25 + embeddings) could further refine results.
+
+## Project Structure
+
+.
+├── demo.py               # Main RAG script
+├── cat-facts.txt         # Input knowledge base (one fact per line)
+├── rag_eval_log.txt      # Output log with responses for all test queries
+└── README.md             # This file
