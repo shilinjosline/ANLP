@@ -15,22 +15,22 @@ The `demo.py` script performs the following tasks:
 
 ## How to Run
 
-### 1. Prerequisites
-- Python 3.7+
-- Ollama installed and running
-- Required models:
-  ollama pull hf.co/CompendiumLabs/bge-base-en-v1.5-gguf
-  ollama pull hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF
-- Python library:
-  pip install ollama
-
-### 2. Run the Code
-Make sure `cat-facts.txt` is located at the specified path in the script (or update it), then run:
-  python demo.py
-
-### 3. Output
-All chatbot responses across different `top_n` settings will be saved in:
-  rag_eval_log.txt
+  ### 1. Prerequisites
+  - Python 3.7+
+  - Ollama installed and running
+  - Required models:
+    ollama pull hf.co/CompendiumLabs/bge-base-en-v1.5-gguf
+    ollama pull hf.co/bartowski/Llama-3.2-1B-Instruct-GGUF
+  - Python library:
+    pip install ollama
+  
+  ### 2. Run the Code
+  Make sure `cat-facts.txt` is located at the specified path in the script (or update it), then run:
+    python demo.py
+  
+  ### 3. Output
+  All chatbot responses across different `top_n` settings will be saved in:
+    rag_eval_log.txt
 
 ## Reflection
 
@@ -46,11 +46,3 @@ All chatbot responses across different `top_n` settings will be saved in:
 - Advanced embedding models: More powerful or domain-adapted embedding models could enhance retrieval quality.
 - Larger instruction-tuned LLMs: Models like LLaMA 3 8B or Mistral-Instruct would generate more fluent, factual, and detailed responses.
 - Reranking and filtering: Incorporating a second stage reranker or using hybrid retrieval (BM25 + embeddings) could further refine results.
-
-## Project Structure
-
-.
-├── demo.py               # Main RAG script
-├── cat-facts.txt         # Input knowledge base (one fact per line)
-├── rag_eval_log.txt      # Output log with responses for all test queries
-└── README.md             # This file
